@@ -6,8 +6,8 @@ import { Expense } from "../types/types";
 interface AppContextType {
   expenses: Expense[];
   setExpenses: React.Dispatch<React.SetStateAction<Expense[]>>;
-    budget: number;
-    setBudget: React.Dispatch<React.SetStateAction<number>>;
+  budget: number;
+  setBudget: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const initialState: AppContextType = {
@@ -21,7 +21,7 @@ export const AppContext = createContext<AppContextType>(initialState);
 
 export const AppProvider = (props: any) => {
   const [expenses, setExpenses] = useState<Expense[]>(initialState.expenses);
-  const [budget, setBudget] = useState(100);
+  const [budget, setBudget] = useState(1000);
 
   return (
     <AppContext.Provider
@@ -30,8 +30,7 @@ export const AppProvider = (props: any) => {
         setExpenses: setExpenses,
         budget: budget,
         setBudget: setBudget,
-      }}
-    >
+      }}>
       {props.children}
     </AppContext.Provider>
   );
