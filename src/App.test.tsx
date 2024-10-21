@@ -1,4 +1,3 @@
-import React from "react";
 import { fireEvent, render, screen } from "@testing-library/react";
 import App from "./App";
 
@@ -57,5 +56,19 @@ describe("Expense Modifications", () => {
       parseInt(getRemaining.innerHTML.split(": $")[1]) +
         parseInt(getExpenses.innerHTML.split(": $")[1])
     ).toEqual(parseInt(getBudget.innerHTML.split(": ")[1]));
+  });
+  test("Negative Remaining", () => {
+    render(<App />);
+    const spy = jest.spyOn(window, "alert");
+    const name = screen.getByLabelText("Name");
+    const cost = screen.getByLabelText("Cost");
+    const saveButton = screen.getByText("Save");
+
+    fireEvent.change(name, { target: { value: "Test Expense" } });
+    fireEvent.change(cost, { target: { value: 1001 } });
+    fireEvent.click(saveButton);
+    expect(screen.getByText("Remaining: $-1")).toBeInTheDocument();
+    expect(screen.getByText("Spent so far: $1001")).toBeInTheDocument();
+    expect(spy).toBeCalled();
   });
 });
