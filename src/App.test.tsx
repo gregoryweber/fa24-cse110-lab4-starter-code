@@ -59,7 +59,6 @@ describe("Expense Modifications", () => {
   });
   test("Negative Remaining", () => {
     render(<App />);
-    const spy = jest.spyOn(window, "alert");
     const name = screen.getByLabelText("Name");
     const cost = screen.getByLabelText("Cost");
     const saveButton = screen.getByText("Save");
@@ -69,6 +68,18 @@ describe("Expense Modifications", () => {
     fireEvent.click(saveButton);
     expect(screen.getByText("Remaining: $-1")).toBeInTheDocument();
     expect(screen.getByText("Spent so far: $1001")).toBeInTheDocument();
+  });
+  test("Budget Alert is called", () => {
+    render(<App />);
+    const spy = jest.spyOn(window, "alert");
+    const name = screen.getByLabelText("Name");
+    const cost = screen.getByLabelText("Cost");
+    const saveButton = screen.getByText("Save");
+
+    fireEvent.change(name, { target: { value: "Test Expense" } });
+    fireEvent.change(cost, { target: { value: 1001 } });
+    fireEvent.click(saveButton);
+
     expect(spy).toBeCalled();
   });
 });
