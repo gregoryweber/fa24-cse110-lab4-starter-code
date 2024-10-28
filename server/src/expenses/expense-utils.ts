@@ -8,7 +8,8 @@ export function createExpenseServer(
 ) {
   const { id, cost, description } = req.body;
 
-  if (!description || !id || !cost) {
+  console.log(cost);
+  if (!description || !id) {
     return res.status(400).send({ error: "Missing required fields" });
   }
 
@@ -22,16 +23,20 @@ export function createExpenseServer(
   res.status(201).send(newExpense);
 }
 
-export function deleteExpense(req: Request, res: Response, expenses: Expense[]) {
-    const { id } = req.params;
-    const index = expenses.findIndex((expense) => expense.id === id);
+export function deleteExpense(
+  req: Request,
+  res: Response,
+  expenses: Expense[]
+) {
+  const { id } = req.params;
+  const index = expenses.findIndex((expense) => expense.id === id);
 
-    if (index === -1) {
-        return res.status(404).send({ error: "Expense not found" });
-    }
+  if (index === -1) {
+    return res.status(404).send({ error: "Expense not found" });
+  }
 
-    expenses.splice(index, 1);
-    res.status(204).send();  
+  expenses.splice(index, 1);
+  res.status(204).send();
 }
 
 export function getExpenses(req: Request, res: Response, expenses: Expense[]) {
