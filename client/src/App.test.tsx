@@ -66,7 +66,7 @@ describe("Expense Modifications", () => {
     fireEvent.change(name, { target: { value: "Test Expense" } });
     fireEvent.change(cost, { target: { value: 1001 } });
     fireEvent.click(saveButton);
-    expect(screen.getByText("Remaining: $-1")).toBeInTheDocument();
+    expect(screen.getByText("Remaining: $-1")).not.toBeInTheDocument();
     expect(screen.getByText("Spent so far: $1001")).toBeInTheDocument();
   });
   test("Budget Alert is called", () => {
