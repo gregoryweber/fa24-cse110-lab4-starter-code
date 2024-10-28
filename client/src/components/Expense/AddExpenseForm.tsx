@@ -16,7 +16,7 @@ const AddExpenseForm = () => {
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const expense = { id: id + "", name: name, cost: cost };
+    const expense = { id: id + "", description: name, cost: cost };
     setId(id + 1);
     createExpense(expense);
     context.setExpenses([...context.expenses, expense]);
