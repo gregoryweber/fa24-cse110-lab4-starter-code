@@ -33,7 +33,7 @@ describe("Expense Modifications", () => {
     expect(screen.getByText("Spent so far: $0")).toBeInTheDocument();
 
     const nameQuery = screen.queryByText("Test Expense");
-    expect(nameQuery).not.toBeNull();
+    expect(nameQuery).toBeNull();
   });
   test("Budget Verification", () => {
     render(<App />);
