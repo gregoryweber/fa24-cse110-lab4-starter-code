@@ -19,19 +19,15 @@ export function createExpenseServer(req: Request, res: Response, expenses: Expen
 }
 
 export function deleteExpense(req: Request, res: Response, expenses: Expense[]) {
-    const { id, cost, description } = req.body;
+    const { id } = req.params;
+    const index = expenses.findIndex((expense) => expense.id === id);
 
-    if (!description || !id || !cost) {
-        return res.status(400).send({ error: "Missing required fields" });
+    if (index === -1) {
+        return res.status(404).send({ error: "Expense not found" });
     }
 
-    const newExpense: Expense = {
-        id: id,
-        description,
-        cost,
-    };
-    expenses =  expenses.filter((e) => e != newExpense);
-    res.status(201).send(newExpense);   
+    expenses.splice(index, 1);
+    res.status(204).send();  
 }
 
 export function getExpenses(req: Request, res: Response, expenses: Expense[]) {
