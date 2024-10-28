@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { AppContext } from "../../context/AppContext";
+import { createExpense } from "../../utils/expense-utils";
 
 const AddExpenseForm = () => {
   // Exercise: Consume the AppContext here #DONE
@@ -7,7 +8,7 @@ const AddExpenseForm = () => {
   // Exercise: Create name and cost to state variables #DONE
 
   const context = useContext(AppContext);
-    
+
   const [name, setName] = useState("");
   const [cost, setCost] = useState(0);
 
@@ -17,6 +18,7 @@ const AddExpenseForm = () => {
     event.preventDefault();
     const expense = { id: id + "", name: name, cost: cost };
     setId(id + 1);
+    createExpense(expense);
     context.setExpenses([...context.expenses, expense]);
 
     // Exercise: Add add new expense to expenses context array #DONE
@@ -33,8 +35,7 @@ const AddExpenseForm = () => {
             className="form-control"
             id="name"
             value={name}
-            onChange= {(event) => setName(event.target.value)}
-          ></input>
+            onChange={(event) => setName(event.target.value)}></input>
         </div>
         <div className="col-sm">
           <label htmlFor="cost">Cost</label>
@@ -44,13 +45,13 @@ const AddExpenseForm = () => {
             className="form-control"
             id="cost"
             value={cost}
-            onChange = {(event) => 
-                { if (event.target.value === "") {
-                    setCost(0);
-                } else {
-                    setCost(parseInt(event.target.value))
-                }}}
-          ></input>
+            onChange={(event) => {
+              if (event.target.value === "") {
+                setCost(0);
+              } else {
+                setCost(parseInt(event.target.value));
+              }
+            }}></input>
         </div>
         <div className="col-sm">
           <button type="submit" className="btn btn-primary mt-3">
