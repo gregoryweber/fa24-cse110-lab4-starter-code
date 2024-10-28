@@ -30,8 +30,7 @@ export function deleteExpense(req: Request, res: Response, expenses: Expense[]) 
         description,
         cost,
     };
-
-    expenses.delete(newExpense);
+    expenses =  expenses.filter((e) => e != newExpense);
     res.status(201).send(newExpense);   
 }
 
