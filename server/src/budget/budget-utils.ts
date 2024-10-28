@@ -1,4 +1,5 @@
-import { Response } from 'express';
+import { Response, Request } from 'express';
+import { budget } from '../constants';
 
 // Function to get the budget
 export function getBudget(res: Response, budget: number) {
