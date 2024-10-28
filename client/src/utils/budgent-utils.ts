@@ -1,7 +1,7 @@
 import { API_BASE_URL } from "../constants/constants";
 
 export const fetchBudget = async (): Promise<number> => {
-	const response = await fetch(`${API_BASE_URL}/budget`);
+    const response = await fetch(`${API_BASE_URL}/budget`);
   if (!response.ok) {
     throw new Error("Failed to fetch expenses");
   }
@@ -14,4 +14,19 @@ export const fetchBudget = async (): Promise<number> => {
 
   console.log("response in fetchExpenses", budget);
   return budget;
+};
+
+export const updateBudget = async (budget: number): Promise<number> => {
+    const response = await fetch(`${API_BASE_URL}/budget`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(budget),
+      });
+    
+    if (!response.ok) {
+    throw new Error("Failed to fetch expenses");
+    }
+    return response.json();
 };
