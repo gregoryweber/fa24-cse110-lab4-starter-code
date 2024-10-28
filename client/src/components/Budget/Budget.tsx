@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../context/AppContext";
-import { fetchBudget } from "../../utils/budgent-utils";
+import { fetchBudget, updateBudget } from "../../utils/budgent-utils";
 
 const Budget = () => {
   const context = useContext(AppContext);
@@ -41,6 +41,8 @@ const Budget = () => {
           <button
             className="btn btn-primary"
             onClick={() => {
+              updateBudget(budget);
+              context.setBudget(budget);
               setEditMode(!editMode);
             }}>
             Submit
